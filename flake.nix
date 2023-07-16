@@ -33,8 +33,12 @@
     pre-commit-hooks,
     systems,
     treefmt,
-  } @ inputs: 
-  flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, inputs, ...}: {
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} ({
+      withSystem,
+      inputs,
+      ...
+    }: {
       systems = import systems;
       imports = [
         flake-root.flakeModule
@@ -55,7 +59,8 @@
         packages = with lib.attrsets; let
           f = n: v: v.config.nixpkgs.system == system;
           nixos = mapAttrs (n: v: v.config.system.build.toplevel) (filterAttrs f self.nixosConfigurations);
-          darwin = mapAttrs (n: v: v.system) (filterAttrs f self.darwinConfigurations);
+          # darwin = mapAttrs (n: v: v.system) (filterAttrs f self.darwinConfigurations);
+          darwin = {};
         in
           nixos // darwin;
 
@@ -90,13 +95,18 @@
       };
 
       flake = {
-        nixosConfigurations.hbot = withSystem "x86_64-linux" (ctx@{ system, config, inputs', ... }:
-        nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            ./configuration.nix
-          ];
-        });
+        nixosConfigurations.hbot = withSystem "x86_64-linux" (ctx @ {
+          system,
+          config,
+          inputs',
+          ...
+        }:
+          nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              ./configuration.nix
+            ];
+          });
       };
     });
 }
