@@ -34,7 +34,7 @@
     systems,
     treefmt,
   } @ inputs: 
-  flake-parts.lib.mkFlake {inherit inputs;} {
+  flake-parts.lib.mkFlake {inherit inputs;} ({withSystem, inputs, ...}: {
       systems = import systems;
       imports = [
         flake-root.flakeModule
@@ -88,14 +88,15 @@
         };
         formatter = config.treefmt.build.wrapper;
       };
-    };
 
-    flake = {
-      nixosConfigurations.hbot = lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./configuration.nix
-        ];
+      flake = {
+        nixosConfigurations.hbot = withSystem "x86_64-linux" (ctx@{ system, config, inputs', ... }:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./configuration.nix
+          ];
+        });
       };
-    };
+    });
 }
