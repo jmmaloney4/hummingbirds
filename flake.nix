@@ -73,6 +73,7 @@
           buildInputs = with pkgs; [
             fluxcd
             kubectl
+            sops
           ];
         };
 
