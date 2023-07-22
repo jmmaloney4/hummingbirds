@@ -70,6 +70,10 @@
             config.pre-commit.devShell
             config.treefmt.build.devShell
           ];
+          buildInputs = with pkgs; [
+            fluxcd
+            kubectl
+          ];
         };
 
         mission-control.scripts = {
