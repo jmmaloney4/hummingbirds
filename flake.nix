@@ -86,6 +86,11 @@
             fluxcd
             kubectl
             sops
+            age
+            terraform
+            pulumi
+            pulumiPackages.pulumi-language-nodejs
+            nodejs
 
             self'.packages.compile-templates
           ];
