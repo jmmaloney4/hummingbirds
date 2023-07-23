@@ -1,0 +1,5 @@
+repos:
+- name: jmmaloney4
+  url: "https://charts.jmmaloney4.xyz/"
+- name: openebs-nfs 
+  url: "https://openebs.github.io/dynamic-nfs-provisioner"

@@ -61,8 +61,15 @@
           nixos = mapAttrs (n: v: v.config.system.build.toplevel) (filterAttrs f self.nixosConfigurations);
           # darwin = mapAttrs (n: v: v.system) (filterAttrs f self.darwinConfigurations);
           darwin = {};
+
+          mustache = pkgs.writeShellScriptBin "mustache" ''
+            #!${pkgs.stdenv}/bin/bash
+            ${pkgs.mustache-go}/bin/mustache
+          '';
         in
-          nixos // darwin;
+          nixos // darwin // {
+            inherit mustache;
+          };
 
         devShells.default = pkgs.mkShell {
           inputsFrom = [
@@ -87,8 +94,16 @@
 
         pre-commit = {
           check.enable = true;
+
           settings.hooks.treefmt.enable = true;
           settings.settings.treefmt.package = config.treefmt.build.wrapper;
+
+          settings.hooks.mustache = {
+            enable = true;
+            entry = "${self'.packages.mustache}/bin/mustache";
+            language = "system";
+            pass_filenames = false;
+          };
         };
 
         treefmt.config = {

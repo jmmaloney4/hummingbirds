@@ -1,0 +1,13 @@
+## Generated File
+{{#repos}}
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: {{ name }}
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: {{ url }}
+
+---
+{{/repos}}
