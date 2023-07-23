@@ -1,4 +1,4 @@
-## Generated File
+## generated file, do not modify.
 apiVersion: source.toolkit.fluxcd.io/v1beta1
 kind: HelmRepository
 metadata:
