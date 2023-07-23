@@ -62,13 +62,18 @@
           # darwin = mapAttrs (n: v: v.system) (filterAttrs f self.darwinConfigurations);
           darwin = {};
 
-          mustache = pkgs.writeShellScriptBin "mustache" ''
-            #!${pkgs.stdenv}/bin/bash
-            ${pkgs.mustache-go}/bin/mustache
-          '';
+          compile-templates = let
+            templates-dir = "${dirOf config.flake-root.projectRootFile}/cluster/templates";
+          in
+            pkgs.writeShellScriptBin "compile-templates" ''
+              #!${pkgs.stdenv}/bin/bash
+              ${pkgs.mustache-go}/bin/mustache ${templates-dir}/repos.data.yaml ${templates-dir}/repos.mustache > ${templates-dir}/repos.yaml
+            '';
         in
-          nixos // darwin // {
-            inherit mustache;
+          nixos
+          // darwin
+          // {
+            inherit compile-templates;
           };
 
         devShells.default = pkgs.mkShell {
@@ -81,6 +86,8 @@
             fluxcd
             kubectl
             sops
+
+            self'.packages.compile-templates
           ];
         };
 
@@ -98,9 +105,10 @@
           settings.hooks.treefmt.enable = true;
           settings.settings.treefmt.package = config.treefmt.build.wrapper;
 
-          settings.hooks.mustache = {
+          settings.hooks.compile-templates = {
             enable = true;
-            entry = "${self'.packages.mustache}/bin/mustache";
+            name = "Compile Templates";
+            entry = "${self'.packages.compile-templates}/bin/compile-templates";
             language = "system";
             pass_filenames = false;
           };
