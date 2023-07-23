@@ -1,0 +1,21 @@
+## Generated File
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: jmmaloney4
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://charts.jmmaloney4.xyz/
+
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: openebs-nfs
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://openebs.github.io/dynamic-nfs-provisioner
+
+---

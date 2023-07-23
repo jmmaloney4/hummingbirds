@@ -105,9 +105,9 @@
           settings.hooks.treefmt.enable = true;
           settings.settings.treefmt.package = config.treefmt.build.wrapper;
 
-          settings.hooks.compile-templates = {
+          settings.hooks.templates = {
             enable = true;
-            name = "Compile Templates";
+            name = "templates";
             entry = "${self'.packages.compile-templates}/bin/compile-templates";
             language = "system";
             pass_filenames = false;
