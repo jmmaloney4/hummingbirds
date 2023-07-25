@@ -91,6 +91,8 @@
             pulumi
             pulumiPackages.pulumi-language-nodejs
             nodejs
+            aws-iam-authenticator
+            awscli2
 
             self'.packages.compile-templates
           ];
