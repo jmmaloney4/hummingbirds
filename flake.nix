@@ -93,6 +93,7 @@
             nodejs
             aws-iam-authenticator
             awscli2
+            azure-cli
 
             self'.packages.compile-templates
           ];

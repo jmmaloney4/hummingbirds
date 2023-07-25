@@ -1,0 +1,14 @@
+{
+    "name": "hummingbots",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^16"
+    },
+    "dependencies": {
+        "@pulumi/azure-native": "^2.1.1",
+        "@pulumi/azuread": "^5.39.0",
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/random": "^4.13.2",
+        "@pulumi/tls": "^4.10.0"
+    }
+}
