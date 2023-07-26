@@ -94,6 +94,7 @@
             aws-iam-authenticator
             awscli2
             azure-cli
+            doctl
 
             self'.packages.compile-templates
           ];
